@@ -2,6 +2,10 @@
 
 Project ini digunakan untuk praktek mata kuliah PBO.
 
+Nama: Dhimas Widrayato
+
+NPM: 2009804191
+
 ## Instalasi
 
 - import file `db.sql` ke mariadb,
