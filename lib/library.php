@@ -36,7 +36,7 @@ function route($method, $regex, $callback) {
     $method = explode(',', $method);
     $method = array_map('trim', array_map('strtoupper', $method));
     $path = !empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
-    $regex = '~^' . $regex . '/?$~';
+    $regex = '~^' . BASE_PATH . $regex . '/?$~';
     $valid_req = ( in_array('ANY', $method) || in_array(req_method(), $method) );
 
     if(preg_match($regex, $path, $args) && $valid_req) {
@@ -137,7 +137,7 @@ function add_header($str, $code = null) {
 /* URL */
 
 function base_url($str = '/') {
-    $base = defined('BASE_URL') ? BASE_URL : 'http://' . $_SERVER['HTTP_HOST'];
+    $base = defined('BASE_URL') ? BASE_URL : 'http://' . $_SERVER['HTTP_HOST'] . BASE_PATH;
     return $base . $str;
 }
 
