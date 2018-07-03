@@ -15,7 +15,7 @@ class App
             ini_set('display_startup_errors', 1);
         }
         error_reporting(E_ALL);
-        ses_start();
+        Session::start();
     }
 
     /**
@@ -31,7 +31,7 @@ class App
         $method = array_map('trim', array_map('strtoupper', $method));
         $path = !empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
         $regex = '~^' . BASE_PATH . $regex . '/?$~';
-        $valid_req = ( in_array('ANY', $method) || in_array(req_method(), $method) );
+        $valid_req = Request::validate($method);
 
         if(preg_match($regex, $path, $args) && $valid_req) {
             if(is_string($callback) && strpos($callback, '@')) {
