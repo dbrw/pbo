@@ -1,13 +1,14 @@
 <?php
 
 use Pbo\DB;
+use Pbo\View;
 
 Class HomeController
 {
     public function index()
     {
         $tugas = DB::select('SELECT id, nama, selesai_pada, dibuat_pada FROM tugas ORDER BY selesai_pada, dibuat_pada DESC');
-        return render_view('home', compact('tugas'));
+        return View::render('home', compact('tugas'));
     }
 
     public function store()
