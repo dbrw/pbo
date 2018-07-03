@@ -1,16 +1,18 @@
 <?php
 
+use Pbo\DB;
+
 Class HomeController
 {
     public function index()
     {
-        $tugas = db_select('SELECT id, nama, selesai_pada, dibuat_pada FROM tugas ORDER BY selesai_pada, dibuat_pada DESC');
+        $tugas = DB::select('SELECT id, nama, selesai_pada, dibuat_pada FROM tugas ORDER BY selesai_pada, dibuat_pada DESC');
         return render_view('home', compact('tugas'));
     }
 
     public function store()
     {
-        $res = db_run('INSERT INTO tugas (nama, dibuat_pada) VALUES (?, now())', [req_post('nama')]);
+        $res = DB::run('INSERT INTO tugas (nama, dibuat_pada) VALUES (?, now())', [req_post('nama')]);
         if($res->errorCode() == '00000'){
             flash_set('pesan', 'Data berhasil disimpan');
         } else {
@@ -20,7 +22,7 @@ Class HomeController
     }
 
     public function update($id) {
-        $res = db_run('UPDATE tugas SET selesai_pada = now() where id = ?', [$id]);
+        $res = DB::run('UPDATE tugas SET selesai_pada = now() where id = ?', [$id]);
         if($res->errorCode() == '00000'){
             flash_set('pesan', 'Data berhasil diupdate');
         } else {
@@ -30,7 +32,7 @@ Class HomeController
     }
 
     public function delete($id) {
-        $res = db_run('DELETE FROM tugas WHERE id = ?', [$id]);
+        $res = DB::run('DELETE FROM tugas WHERE id = ?', [$id]);
         if($res->errorCode() == '00000'){
             flash_set('pesan', 'Data 3' . $id . ' berhasil dihapus');
         } else {
