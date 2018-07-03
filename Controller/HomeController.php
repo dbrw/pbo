@@ -2,6 +2,7 @@
 
 use Pbo\DB;
 use Pbo\View;
+use Pbo\Request;
 
 Class HomeController
 {
@@ -13,7 +14,7 @@ Class HomeController
 
     public function store()
     {
-        $res = DB::run('INSERT INTO tugas (nama, dibuat_pada) VALUES (?, now())', [req_post('nama')]);
+        $res = DB::run('INSERT INTO tugas (nama, dibuat_pada) VALUES (?, now())', [Request::post('nama')]);
         if($res->errorCode() == '00000'){
             flash_set('pesan', 'Data berhasil disimpan');
         } else {
